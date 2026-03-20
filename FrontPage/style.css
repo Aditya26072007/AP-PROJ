@@ -1,0 +1,142 @@
+:root {
+  --bg: #0f172a;        /* dark blue */
+  --nav: #1e293b;
+  --primary: #38bdf8;   /* sky blue */
+  --text: #e2e8f0;
+  --accent: #22c55e;    /* green */
+  
+
+}
+
+
+*{
+    margin:0px;
+    padding:0px;
+    border: 2px solid red;
+}
+.nav-content{
+    flex: 1;
+    
+}
+nav img{
+    height: 30px;
+    width: 50px;
+    margin-left: 5%;
+margin-right: 5%;
+}
+
+nav{
+    width:100%;
+    height:80px;
+    background-color:#fff;
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.3);
+    position: sticky;
+    top: 0;
+    z-index: 5000;
+}
+nav ol{
+    display: flex;
+    text-decoration: none;
+    list-style: none;
+    margin: 0;
+   justify-content: space-evenly;
+  padding: 0;
+  width: auto;
+    
+    
+}
+nav li:first-child{
+    margin-left: 80px;
+}
+nav li:last-child{
+    margin-right: 0%;
+}
+nav li{
+    /* justify-content:space-evenly; */
+   /* margin-left: 5%; */
+   margin-right: 5%;
+    /* gap: 10000px; */
+    
+}
+nav a{
+    text-decoration: none;
+    color: #14532d;
+}
+nav .login{
+margin-right: 50px;
+}
+nav .login button{
+    width: 80px;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    background-color: #E8F5BD;
+    color: #84B179;
+    font-weight: bold;
+    cursor: pointer;
+    /* position: absolute;
+    right: 2%;
+    top:30.45%; */
+    
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.3);
+    
+}
+nav button:hover{
+    background-color: rgb(240, 255, 246);
+}
+.search{
+    /* display: inline-block; */
+    /* width: 150px;
+    height: 31px; */
+    /* position: relative; */
+    /* margin-left: 15%; */
+    /* position: absolute;
+    right: 22%;
+    top:30.45%; */
+    margin-right: 5%;
+    margin-left: 5%;
+    margin-top: 0.2%;
+    width: 180px;
+}
+#searchtxt {
+    /* position: absolute; */
+    
+    width: 150px;
+    height: 31px;
+    border-radius: 5px;
+    width: 100%;
+   /* position: relative; */
+  
+    border: none;
+    padding-left: 5px;
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.3);
+}
+
+.sbtn{
+    /* position: absolute; */
+    /* position:absolute;
+    right:-240px;
+    top:50%; */
+   /* width: 100%;
+   height: 100%; */
+    transform:translateY(-50%);
+    cursor:pointer;
+    color:#14532d;
+    /* top: 50%;
+    right: 14%; */
+    margin-left: 88%;
+   
+    margin-top: -9%;
+   
+    
+}
+#sea-btn{
+ /* margin-left: 1%; */
+}
+.search1{
+    height: 100%;
+    border: 3px solid black;
+}

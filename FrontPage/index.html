@@ -54,5 +54,66 @@
 
 
     <div class="hero-section"></div>
+
+
+    <div class="main-section">
+<div class="invs">
+      Demo Investments 1</div>
+      <div class="arr">
+        &nbsp;&nbsp; <i class="fa-solid fa-angle-down" id="dropdown"></i>
+      </div> 
+      <div class="addinvs">
+      <button><i class="fa-solid fa-plus"></i> Add Investor</button>
+    </div>
+</div>
+
+
+    <div class="invs-card">
+      <ol>
+        <li>hello</li>
+      </ol>
+      
+    </div>
+
+    <div class="container hidden">
+  <h2>Add Investment</h2>
+<div class="cross">X</div>
+  <!-- Investment Type -->
+  <label>Investment Type</label>
+  <select id="type" onchange="updateOptions()">
+    <option value="">Select Type</option>
+    <option value="Stock">Stock</option>
+    <option value="Mutual Fund">Mutual Fund</option>
+    <option value="Crypto">Crypto</option>
+    <option value="Bond">Bond</option>
+  </select>
+
+  <!-- Investment Name (Dynamic) -->
+  <label>Investment</label>
+  <select id="investment">
+    <option>Select option</option>
+  </select>
+
+  <!-- Amount -->
+  <label>Amount (₹)</label>
+  <input type="number" id="amount" placeholder="Enter amount">
+
+  <!-- Date -->
+  <label>Date of Investment</label>
+  <input type="date" id="date">
+
+  <!-- Submit -->
+  <button onclick="addInvestment()">Add Investment</button>
+</div>
+
+
+
+
+<div class="blur hidden"></div>
+
+
+
+
+<script src="script.js"></script>
   </body>
 </html>

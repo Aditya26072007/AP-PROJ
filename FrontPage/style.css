@@ -171,6 +171,8 @@ nav button:hover{
 }
 .main-section{
 display: flex;
+position: relative;
+
 }
 .invs{
     padding-left: 10%;
@@ -186,8 +188,17 @@ display: flex;
 #dropdown{
 color: rgb(90, 96, 100);
 margin-top: 50%;
-}
 
+    cursor: pointer;
+    
+
+}
+#dropdown:hover{
+    color: #398e13;
+}
+/* #dropdown::after{
+    color:lightblue;
+} */
 .main-section button{
     height: 60px;
    width: 200px;
@@ -207,34 +218,21 @@ margin-top: 50%;
 .addinvs{
     /* width: 100%; */
     /* height: 80px; */
-    margin-left: 600px;
-    margin-top: 50px;
+    position: absolute;
+    left: 80%;
+    top: 50px;
     
 }
-.invs-card{
-    min-height: 80px;
-    width: 600px;
-    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.3);
-    margin-left: 130px;
-}
-.invs-card ol{
-    list-style-type: none;
-    padding: 5%;
-    font-size: 25px;
-    font-family: "EB Garamond", serif;
-    font-optical-sizing: auto;
-  font-style: normal;
- padding-left: 50px;
-}
+
 
 
 
 
 
 .cross{
-    position: fixed;
-    top: 28.5%;
-    left: 64%;
+    position: absolute;
+    top: 2%;
+    left: 90%;
     font-size: 20px;
     cursor: pointer;
 }
@@ -309,3 +307,90 @@ margin-top: 50%;
     .container button:hover {
       background: #16a34a;
     }
+
+
+
+
+
+
+
+
+    .invs-card {
+ 
+    position: absolute;
+  top: 100%;   /* appears below main section */
+  left: 10%;
+
+  width: 27%;
+  max-height: 300px;
+
+  overflow-y: auto;
+  padding: 15px;
+  border-radius: 12px;
+
+  background: #fff;
+  backdrop-filter: blur(10px);
+
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+
+  margin-top: 10px;
+  z-index: 10;
+
+}
+
+
+/* List styling */
+.invs-card ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Each item */
+.invs-card li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 10px 12px;
+  margin-bottom: 10px;
+
+  border-radius: 10px;
+ background: #fff;              /* very light green */
+  border: 1px solid #fff;        /* soft green border */
+  transition: 0.2s;
+}
+
+.invs-card li:hover {
+  background: lightgray;         /* light hover */
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+/* Delete button */
+.invs-card .dlt-btn {
+ background:#f0ffec;
+  border: none;
+   padding: 4px 8px; 
+  border-radius: 5px;
+  color: black;
+  cursor: pointer;
+  font-size: 11px;
+  width: 70px;
+  height: 40px;
+  /* height: 100%; */
+}
+
+.invs-card .dlt-btn:hover {
+  background: #e7e8c3; 
+  color: black;
+}
+
+.invs-card::-webkit-scrollbar {
+  width: 6px;
+}
+
+.invs-card::-webkit-scrollbar-thumb {
+ background: #94a3b8;   
+  border-radius: 10px;
+}

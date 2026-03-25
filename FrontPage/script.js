@@ -117,7 +117,7 @@ const invsText = document.querySelector(".invs");
     selectedInvestment = data;
 
     //  update UI
-    invsText.textContent = `${data.name}`;
+    invsText.textContent = `${data.name}- ₹${data.amount}`;
 
     console.log("Selected:", selectedInvestment); // for testing
   });

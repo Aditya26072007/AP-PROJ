@@ -31,7 +31,7 @@ let investors=JSON.parse(localStorage.getItem("investors"))||[];
 
 
 const stocks = ["Reliance", "TCS", "Infosys"];
-  const mutualFunds = ["HDFC Midcap", "SBI Bluechip", "Axis Growth"];
+  // const mutualFunds = ["HDFC Midcap", "SBI Bluechip", "Axis Growth"];
   const crypto = ["Bitcoin", "Ethereum", "Solana"];
   const bonds = ["Gov Bond", "Corporate Bond", "Tax-Free Bond"];
 
@@ -44,7 +44,7 @@ const stocks = ["Reliance", "TCS", "Infosys"];
     let options = [];
 console.log("changed"); 
     if (type === "Stock") options = stocks;
-    if (type === "Mutual Fund") options = mutualFunds;
+    // if (type === "Mutual Fund") options = mutualFunds;
     if (type === "Crypto") options = crypto;
     if (type === "Bond") options = bonds;
 
@@ -82,9 +82,19 @@ console.log("changed");
 }
 
 else{
+  const symbol = symbolMap[data.name];
+const price = prices[symbol];
+
+if(price){
+data.units = Number(data.amount) / price;
+}else{
+data.units = 0;
+}
   investors.push(data);
   savetolocal();
   renderTask(data);
+  calculateTotal();
+  calculatetoatldisplay();
   document.getElementById("type").value="";
   document.getElementById("investment").value="Select option";
   document.getElementById("amount").value="";
@@ -126,6 +136,8 @@ const invsText = document.querySelector(".invs");
     investors = investors.filter((t) => t.id !== data.id);
     li.remove();
     savetolocal();
+    calculateTotal();
+    calculatetoatldisplay();
   });
 
   storer.appendChild(li);
@@ -146,7 +158,8 @@ dropdown.addEventListener("click",()=>{
 //   }
 // });
 investors.forEach(investor => renderTask(investor));
-
+calculateTotal();
+calculatetoatldisplay();
 
 
 const swaps=document.querySelectorAll(".invs-card ol li");
@@ -157,4 +170,158 @@ const swaps=document.querySelectorAll(".invs-card ol li");
 // swap.classList.remove("invs-card")
 // });
 // });
+
+
+function calculateTotal() {
+
+const totalInvested = investors.reduce((sum, item) => sum + Number(item.amount), 0);
+
+return totalInvested;
+}
+
+function calculatetoatldisplay(){
+  console.log(calculateTotal());
+}
+
+const originalprice=calculateTotal();
+// console.log(originalprice);
+
+
+const symbolMap = {
+
+  // Stocks
+  "Reliance": "RELIANCE.NS",
+  "TCS": "TCS.NS",
+  "Infosys": "INFY.NS",
+
+  // Mutual Funds
+  // "HDFC Midcap": "HDFCMIDCAP.NS",
+  // "SBI Bluechip": "SBIBLUECHIP.NS",
+  // "Axis Growth": "AXISGROWTH.NS",
+
+  // Crypto
+  "Bitcoin": "BTC-USD",
+  "Ethereum": "ETH-USD",
+  "Solana": "SOL-USD",
+
+  // Bonds (approx ETFs because bonds themselves don't trade like stocks)
+  "Gov Bond": "IGLB",
+  "Corporate Bond": "LQD",
+  "Tax-Free Bond": "MUB"
+};
+
+
+async function fetchAllPrices(){
+
+const symbols = Object.values(symbolMap).join(",");
+
+const api =
+`https://query1.finance.yahoo.com/v7/finance/quote?symbols=${symbols}`;
+
+const proxy =
+"https://api.allorigins.win/get?url=" + encodeURIComponent(api);
+
+const res = await fetch(proxy);
+const data = await res.json();
+
+// proxy returns JSON string inside "contents"
+const parsed = JSON.parse(data.contents);
+
+return parsed.quoteResponse.result || [];
+
+}
+async function get10YearHistory(symbol){
+
+const api =
+`https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?range=10y&interval=1mo`;
+
+const proxy =
+"https://api.allorigins.win/raw?url=" + encodeURIComponent(api);
+
+const res = await fetch(proxy);
+const data = await res.json();
+
+const prices =
+data.chart.result[0].indicators.quote[0].close;
+
+const timestamps =
+data.chart.result[0].timestamp;
+
+return {prices, timestamps};
+
+}
+function convertDates(timestamps){
+
+return timestamps.map(t =>
+new Date(t * 1000).toLocaleDateString()
+);
+
+}
+
+const prices = {};
+
+async function loadPrices(){
+
+try{
+
+const result = await fetchAllPrices();
+
+console.log("API result:", result);
+
+result.forEach(asset=>{
+prices[asset.symbol] = asset.regularMarketPrice;
+});
+
+}catch(err){
+
+console.log("Error in loadPrices:", err);
+
+}
+}
+
+
+async function init(){
+console.log("init started");
+await loadPrices();
+
+const currentValue = newprice();
+
+console.log("Current Portfolio Value:", currentValue);
+
+}
+
+init();
+const currentpricemap={};
+function newprice(){
+
+let total = 0;
+
+investors.forEach(inv=>{
+
+const symbol = symbolMap[inv.name];
+const price = prices[symbol];
+
+if(price){
+
+const units = inv.units ? inv.units : inv.amount / price;
+
+const value = units * price;
+
+if(!currentpricemap[inv.name]){
+currentpricemap[inv.name] = 0;
+}
+
+currentpricemap[inv.name] += value;
+
+total += value;
+
+}
+
+});
+
+return total;
+
+}
+
+
 });

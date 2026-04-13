@@ -13,7 +13,7 @@
 *{
     margin:0px;
     padding:0px;
-    /* border: 2px solid red; */
+    border: 2px solid red;
 }
 .nav-content{
     flex: 1;
@@ -421,4 +421,11 @@ margin-top: 50%;
 .invs-card::-webkit-scrollbar-thumb {
  background: #94a3b8;   
   border-radius: 10px;
+}
+
+
+.amount p{
+    display: inline-block;
+    margin-left: 15%;
+    font-size: 39px;
 }

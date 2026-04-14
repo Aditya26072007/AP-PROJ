@@ -135,7 +135,9 @@ if (!investor) {
   alert("Select investor first");
   return;
 }
-
+if (!investor.investments) {
+  investor.investments = [];
+}
 investor.investments.push(data);
   savetolocal();
  renderInvestors();
@@ -264,8 +266,8 @@ const invsText = document.querySelector(".invs");
 
 function renderInvestors() {
   storer.innerHTML = "";
-
   investors.forEach((inv, index) => {
+    if (!inv.investments) inv.investments = []; 
     const ol = document.createElement("ol");
 
     const header = document.createElement("li");
@@ -317,7 +319,7 @@ function renderInvestors() {
     ol.appendChild(header);
 
     // investments
-    inv.investments.forEach((item) => {
+    (inv.investments || []).forEach((item) => {
       const li = document.createElement("li");
       li.innerHTML = `
         ${item.name} - ₹${item.amount}
@@ -374,7 +376,7 @@ function calculateReturns() {
     };
   }
 
-  investor.investments.forEach(inv => {
+  (investor.investments || []).forEach(inv => {
     const currentPrice = getCurrentPrice(inv);
 
     if (currentPrice && inv.units) {
@@ -472,7 +474,7 @@ function portfolioAtDate(targetDate) {
 
   if (!investor) return { totalValue: 0, percent: 0 };
 
-  investor.investments.forEach(inv => {
+  (investor.investments || []).forEach(inv => {
     const investDate = new Date(inv.date);
 
     if (targetDate >= investDate) {

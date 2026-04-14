@@ -219,7 +219,7 @@ position: relative;
     padding-top: 0px;
     font-size: 25px;
 }
-#dropdown{
+.dropdown{
 color: rgb(90, 96, 100);
 margin-top: 50%;
 
@@ -227,13 +227,13 @@ margin-top: 50%;
     
 
 }
-.amount #dropdown{
+.amount .dropdown{
     margin-top: 0%;
 }
-#dropdown:hover{
+.dropdown:hover{
     color: #398e13;
 }
-/* #dropdown::after{
+/* .dropdown::after{
     color:lightblue;
 } */
  .main-section  button{

@@ -25,7 +25,20 @@ cross.addEventListener("click",()=>{
 });
 let investors=JSON.parse(localStorage.getItem("investors"))||[];
 
+  const arrow1=document.querySelector(".amount .arr");
+  const dayscard=document.querySelector(".days-card");
+  arrow1.addEventListener("click",()=>{
+    dayscard.classList.toggle("hidden");
+  })
   
+  const arrows = document.querySelectorAll(".arr i");
+
+arrows.forEach(arrow => {
+  arrow.addEventListener("click", (e) => {
+     // prevents unwanted bubbling
+    arrow.classList.toggle("rotate");
+  });
+});
 
 // document.getElementById("addBtn").addEventListener("click", addInvestment);
 
@@ -56,6 +69,19 @@ console.log("changed");
     });
   }
 
+  const fixedPrices = {
+  "Reliance": 2800,
+  "TCS": 3900,
+  "Infosys": 1500,
+  "Bitcoin": 5000000,
+  "Ethereum": 250000,
+  "Solana": 12000,
+  "Gov Bond": 100,
+  "Corporate Bond": 120,
+  "Tax-Free Bond": 110
+};
+
+
 
   function addInvestment() {
     const data = {
@@ -82,27 +108,29 @@ console.log("changed");
 }
 
 else{
-  const symbol = symbolMap[data.name];
-const price = prices[symbol];
+const buyPrice = fixedPrices[data.name];
 
-if(price){
-data.units = Number(data.amount) / price;
-}else{
-data.units = 0;
-}
+  data.buyPrice = buyPrice;
+
+  data.units = buyPrice
+    ? Number((Number(data.amount) / buyPrice).toFixed(6))
+    : 0;
+
   investors.push(data);
   savetolocal();
   renderTask(data);
-  calculateTotal();
-  calculatetoatldisplay();
+
+  calculatetoatldisplay(); // 🔥 important
+
   document.getElementById("type").value="";
   document.getElementById("investment").value="Select option";
   document.getElementById("amount").value="";
   document.getElementById("date").value="";
-  console.log(data);
+
   listinvs.classList.add("hidden");
-    blur.classList.add("hidden");
-    alert("Investment Added!");
+  blur.classList.add("hidden");
+
+  alert("Investment Added!");
 
 }
 
@@ -153,8 +181,8 @@ const invsText = document.querySelector(".invs");
     investors = investors.filter((t) => t.id !== data.id);
     li.remove();
     savetolocal();
-    calculateTotal();
     calculatetoatldisplay();
+    calculateTotal();
   });
 
   storer.appendChild(li);
@@ -175,11 +203,225 @@ dropdown.addEventListener("click",()=>{
 //   }
 // });
 investors.forEach(investor => renderTask(investor));
-calculateTotal();
+
+
+
+
+
+
+
+function calculateReturns() {
+  let totalInvestment = 0;
+  let totalCurrent = 0;
+
+  investors.forEach(inv => {
+    const currentPrice = getCurrentPrice(inv);
+
+    if (currentPrice && inv.units) {
+      const currentValue = inv.units * currentPrice;
+
+      totalInvestment += Number(inv.amount);
+      totalCurrent += currentValue;
+    }
+  });
+
+  const profit = totalCurrent - totalInvestment;
+
+  const percent =
+    totalInvestment > 0 ? (profit / totalInvestment) * 100 : 0;
+
+  return {
+    totalInvestment,
+    totalCurrent,
+    profit,
+    percent
+  };
+}
+
+
+function calculatetoatldisplay() {
+  const daytext=document.querySelector("#day-wise-return");
+  const result = calculateReturns();
+
+  document.getElementById("currentvalue").textContent =
+    "Current Value: ₹" + result.totalCurrent.toFixed(2);
+
+  document.getElementById("lifetime").textContent =
+    "Return: " + result.percent.toFixed(2) + "%";
+
+
+    daytext.textContent = `Lifetime`;
+}
+
+
+
+function getCurrentPrice(inv) {
+  const basePrice = fixedPrices[inv.name];
+
+  if (!basePrice) return 0;
+
+  const investDate = new Date(inv.date);
+  const today = new Date();
+
+  const days =
+    Math.floor((today - investDate) / (1000 * 60 * 60 * 24));
+
+  // 🔥 assume 0.05% daily growth
+  const growthRate = 0.0005;
+
+  const currentPrice = basePrice * Math.pow(1 + growthRate, days);
+
+  return currentPrice;
+}
+// calculateTotal();
 calculatetoatldisplay();
 
+function getPriceAtDate(inv, targetDate) {
+  const basePrice = fixedPrices[inv.name];
+  if (!basePrice) return 0;
 
-const swaps=document.querySelectorAll(".invs-card ol li");
+  const investDate = new Date(inv.date);
+
+  // if target date is before investment → no value
+  if (targetDate < investDate) return 0;
+
+  const days =
+    Math.floor((targetDate - investDate) / (1000 * 60 * 60 * 24));
+
+  const growthRate = 0.0005;
+
+  return basePrice * Math.pow(1 + growthRate, days);
+}
+
+function portfolioAtDate(targetDate) {
+  let totalInvestment = 0;
+  let totalValue = 0;
+
+  investors.forEach(inv => {
+    const investDate = new Date(inv.date);
+
+    if (targetDate >= investDate) {
+      const price = getPriceAtDate(inv, targetDate);
+      const value = inv.units * price;
+
+      totalInvestment += Number(inv.amount);
+      totalValue += value;
+    }
+  });
+
+  const profit = totalValue - totalInvestment;
+  const percent =
+    totalInvestment > 0 ? (profit / totalInvestment) * 100 : 0;
+
+  return { totalValue, percent };
+}
+
+
+function calculateTimeViews() {
+  const today = new Date();
+
+  const yesterday = new Date();
+  yesterday.setDate(today.getDate() - 1);
+
+  const oneMonth = new Date();
+  oneMonth.setMonth(today.getMonth() - 1);
+
+  const threeMonths = new Date();
+  threeMonths.setMonth(today.getMonth() - 3);
+
+  return {
+    today: portfolioAtDate(today),
+    yesterday: portfolioAtDate(yesterday),
+    oneMonth: portfolioAtDate(oneMonth),
+    threeMonths: portfolioAtDate(threeMonths)
+  };
+}
+
+
+
+
+function updateTimeDisplay() {
+ 
+
+  // document.getElementById("day-wise-return").innerHTML = `
+  //   Today: ₹${data.today.totalValue.toFixed(0)} (${data.today.percent.toFixed(2)}%)<br>
+  //   Yesterday: ₹${data.yesterday.totalValue.toFixed(0)} (${data.yesterday.percent.toFixed(2)}%)<br>
+  //   1 Month: ₹${data.oneMonth.totalValue.toFixed(0)} (${data.oneMonth.percent.toFixed(2)}%)<br>
+  //   3 Months: ₹${data.threeMonths.totalValue.toFixed(0)} (${data.threeMonths.percent.toFixed(2)}%)
+  // `;
+
+  const li=document.querySelectorAll(".days-card li");
+  const daytext=document.querySelector("#day-wise-return");
+
+  const today=document.getElementById("today-return");
+  const yesterday=document.getElementById("yesterday-return");
+  const oneMonth=document.getElementById("one-month-return");
+  const threeMonths=document.getElementById("three-months-return");
+  const lifetime=document.getElementById("lifetime-return");
+  li.forEach(item=>{
+    item.addEventListener("click",(e)=>{
+
+
+       const data = calculateTimeViews();
+      console.log(e.target.textContent);
+    if(item===today)  {
+      document.getElementById("currentvalue").textContent =
+    "Current Value: ₹" + data.today.totalValue.toFixed(0);
+
+  document.getElementById("lifetime").textContent =
+    "Return: " + data.today.percent.toFixed(2) + "%";
+
+    daytext.textContent = `Today`;
+    }
+
+
+
+    if(item===yesterday)  {
+      document.getElementById("currentvalue").textContent =
+    "Current Value: ₹" + data.yesterday.totalValue.toFixed(0);
+
+  document.getElementById("lifetime").textContent =
+    "Return: " + data.yesterday.percent.toFixed(2) + "%";
+
+    daytext.textContent = `Yesterday`;
+    }
+
+
+
+    if(item===oneMonth)  {
+      document.getElementById("currentvalue").textContent =
+    "Current Value: ₹" + data.oneMonth.totalValue.toFixed(0);
+
+  document.getElementById("lifetime").textContent =
+    "Return: " + data.oneMonth.percent.toFixed(2) + "%";
+
+    daytext.textContent = `1 Month`;
+    }
+
+
+    if(item===threeMonths)  {
+      document.getElementById("currentvalue").textContent =
+    "Current Value: ₹" + data.threeMonths.totalValue.toFixed(0);
+
+  document.getElementById("lifetime").textContent =
+    "Return: " + data.threeMonths.percent.toFixed(2) + "%";
+
+    daytext.textContent = `3 Months`;
+    }
+
+    if(item===lifetime)  {
+      calculatetoatldisplay();
+      
+    }
+    
+
+  })
+  })
+}
+updateTimeDisplay();
+
+
+// const swaps=document.querySelectorAll(".invs-card ol li");
 
 // swaps.forEach((swap)=>{
 // swaps.addEventListener("click",()=>{
@@ -189,156 +431,156 @@ const swaps=document.querySelectorAll(".invs-card ol li");
 // });
 
 
-function calculateTotal() {
+// function calculateTotal() {
 
-const totalInvested = investors.reduce((sum, item) => sum + Number(item.amount), 0);
+// const totalInvested = investors.reduce((sum, item) => sum + Number(item.amount), 0);
 
-return totalInvested;
-}
+// return totalInvested;
+// }
 
-function calculatetoatldisplay(){
-  console.log(calculateTotal());
-}
+// function calculatetoatldisplay(){
+//   console.log(calculateTotal());
+// }
 
-const originalprice=calculateTotal();
+// const originalprice=calculateTotal();
 // console.log(originalprice);
 
 
-const symbolMap = {
+// const symbolMap = {
 
-  // Stocks
-  "Reliance": "RELIANCE.NS",
-  "TCS": "TCS.NS",
-  "Infosys": "INFY.NS",
+//   // Stocks
+//   "Reliance": "RELIANCE.NS",
+//   "TCS": "TCS.NS",
+//   "Infosys": "INFY.NS",
 
-  // Mutual Funds
-  // "HDFC Midcap": "HDFCMIDCAP.NS",
-  // "SBI Bluechip": "SBIBLUECHIP.NS",
-  // "Axis Growth": "AXISGROWTH.NS",
+//   // Mutual Funds
+//   // "HDFC Midcap": "HDFCMIDCAP.NS",
+//   // "SBI Bluechip": "SBIBLUECHIP.NS",
+//   // "Axis Growth": "AXISGROWTH.NS",
 
-  // Crypto
-  "Bitcoin": "BTC-USD",
-  "Ethereum": "ETH-USD",
-  "Solana": "SOL-USD",
+//   // Crypto
+//   "Bitcoin": "BTC-USD",
+//   "Ethereum": "ETH-USD",
+//   "Solana": "SOL-USD",
 
-  // Bonds (approx ETFs because bonds themselves don't trade like stocks)
-  "Gov Bond": "IGLB",
-  "Corporate Bond": "LQD",
-  "Tax-Free Bond": "MUB"
-};
-
-
-async function fetchAllPrices(){
-
-const symbols = Object.values(symbolMap).join(",");
-
-const api =
-`https://query1.finance.yahoo.com/v7/finance/quote?symbols=${symbols}`;
-
-const proxy =
-"https://api.allorigins.win/get?url=" + encodeURIComponent(api);
-
-const res = await fetch(proxy);
-const data = await res.json();
-
-// proxy returns JSON string inside "contents"
-const parsed = JSON.parse(data.contents);
-
-return parsed.quoteResponse.result || [];
-
-}
-async function get10YearHistory(symbol){
-
-const api =
-`https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?range=10y&interval=1mo`;
-
-const proxy =
-"https://api.allorigins.win/raw?url=" + encodeURIComponent(api);
-
-const res = await fetch(proxy);
-const data = await res.json();
-
-const prices =
-data.chart.result[0].indicators.quote[0].close;
-
-const timestamps =
-data.chart.result[0].timestamp;
-
-return {prices, timestamps};
-
-}
-function convertDates(timestamps){
-
-return timestamps.map(t =>
-new Date(t * 1000).toLocaleDateString()
-);
-
-}
-
-const prices = {};
-
-async function loadPrices(){
-
-try{
-
-const result = await fetchAllPrices();
-
-console.log("API result:", result);
-
-result.forEach(asset=>{
-prices[asset.symbol] = asset.regularMarketPrice;
-});
-
-}catch(err){
-
-console.log("Error in loadPrices:", err);
-
-}
-}
+//   // Bonds (approx ETFs because bonds themselves don't trade like stocks)
+//   "Gov Bond": "IGLB",
+//   "Corporate Bond": "LQD",
+//   "Tax-Free Bond": "MUB"
+// };
 
 
-async function init(){
-console.log("init started");
-await loadPrices();
+// async function fetchAllPrices(){
 
-const currentValue = newprice();
+// const symbols = Object.values(symbolMap).join(",");
 
-console.log("Current Portfolio Value:", currentValue);
+// const api =
+// `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${symbols}`;
 
-}
+// const proxy =
+// "https://api.allorigins.win/get?url=" + encodeURIComponent(api);
 
-init();
-const currentpricemap={};
-function newprice(){
+// const res = await fetch(proxy);
+// const data = await res.json();
 
-let total = 0;
+// // proxy returns JSON string inside "contents"
+// const parsed = JSON.parse(data.contents);
 
-investors.forEach(inv=>{
+// return parsed.quoteResponse.result || [];
 
-const symbol = symbolMap[inv.name];
-const price = prices[symbol];
+// }
+// async function get10YearHistory(symbol){
 
-if(price){
+// const api =
+// `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?range=10y&interval=1mo`;
 
-const units = inv.units ? inv.units : inv.amount / price;
+// const proxy =
+// "https://api.allorigins.win/raw?url=" + encodeURIComponent(api);
 
-const value = units * price;
+// const res = await fetch(proxy);
+// const data = await res.json();
 
-if(!currentpricemap[inv.name]){
-currentpricemap[inv.name] = 0;
-}
+// const prices =
+// data.chart.result[0].indicators.quote[0].close;
 
-currentpricemap[inv.name] += value;
+// const timestamps =
+// data.chart.result[0].timestamp;
 
-total += value;
+// return {prices, timestamps};
 
-}
+// }
+// function convertDates(timestamps){
 
-});
+// return timestamps.map(t =>
+// new Date(t * 1000).toLocaleDateString()
+// );
 
-return total;
+// }
 
-}
+// const prices = {};
+
+// async function loadPrices(){
+
+// try{
+
+// const result = await fetchAllPrices();
+
+// console.log("API result:", result);
+
+// result.forEach(asset=>{
+// prices[asset.symbol] = asset.regularMarketPrice;
+// });
+
+// }catch(err){
+
+// console.log("Error in loadPrices:", err);
+
+// }
+// }
+
+
+// async function init(){
+// console.log("init started");
+// await loadPrices();
+
+// const currentValue = newprice();
+
+// console.log("Current Portfolio Value:", currentValue);
+
+// }
+
+// init();
+// const currentpricemap={};
+// function newprice(){
+
+// let total = 0;
+
+// investors.forEach(inv=>{
+
+// const symbol = symbolMap[inv.name];
+// const price = prices[symbol];
+
+// if(price){
+
+// const units = inv.units ? inv.units : inv.amount / price;
+
+// const value = units * price;
+
+// if(!currentpricemap[inv.name]){
+// currentpricemap[inv.name] = 0;
+// }
+
+// currentpricemap[inv.name] += value;
+
+// total += value;
+
+// }
+
+// });
+
+// return total;
+
+// }
 
 
 });

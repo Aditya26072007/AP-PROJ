@@ -56,10 +56,9 @@ nav li:last-child{
     margin-right: 0%;
 }
 nav li{
-    /* justify-content:space-evenly; */
-   /* margin-left: 5%; */
+ 
    margin-right: 5%;
-    /* gap: 10000px; */
+  
     transition: 0.3s ease-in-out all;
     
 }
@@ -90,9 +89,7 @@ nav .login button{
     color: #84B179;
     font-weight: bold;
     cursor: pointer;
-    /* position: absolute;
-    right: 2%;
-    top:30.45%; */
+
     
     box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.3);
     
@@ -101,27 +98,20 @@ nav button:hover{
     background-color: rgb(240, 255, 246);
 }
 .search{
-    /* display: inline-block; */
-    /* width: 150px;
-    height: 31px; */
-    /* position: relative; */
-    /* margin-left: 15%; */
-    /* position: absolute;
-    right: 22%;
-    top:30.45%; */
+
     margin-right: 5%;
     margin-left: 5%;
     margin-top: 0.2%;
     width: 180px;
 }
 #searchtxt {
-    /* position: absolute; */
+
     
     width: 150px;
     height: 31px;
     border-radius: 5px;
     width: 100%;
-   /* position: relative; */
+
   
     border: none;
     padding-left: 5px;
@@ -129,39 +119,22 @@ nav button:hover{
 }
 
 .sbtn{
-    /* position: absolute; */
-    /* position:absolute;
-    right:-240px;
-    top:50%; */
-   /* width: 100%;
-   height: 100%; */
+
     transform:translateY(-50%);
     cursor:pointer;
     color:#14532d;
-    /* top: 50%;
-    right: 14%; */
+  
     margin-left: 88%;
    
     margin-top: -9%;
    
     
 }
-/* #sea-btn{
- /* margin-left: 1%; 
-} */
+
 .search1{
     height: 100%;
     border: 3px solid black;
 }
-
-
-
-
-
-
-
-
-
 
 
 .hero-section{
@@ -233,16 +206,13 @@ margin-top: 50%;
 .dropdown:hover{
     color: #398e13;
 }
-/* .dropdown::after{
-    color:lightblue;
-} */
+
  .main-section  button{
     height: 30px;
    width: 80px;
-   /* border-radius: 5px; */
+  
     border: none;
-    /* background-color: #E8F5BD;
-    color: black; */
+    
     border-radius: 500px;
     font-weight: bold;
     cursor: pointer;
@@ -269,13 +239,10 @@ margin-top: 50%;
 
   border: 1px solid #e2e8f0;
 
-  /* 🔥 depth */
   box-shadow: 0 10px 25px rgba(0,0,0,0.12);
 
-  /* spacing */
   margin-top: 12px;
 
-  /* smooth animation */
   transition: all 0.25s ease;
 }
 .main-section ol:hover {
@@ -290,8 +257,7 @@ margin-top: 50%;
     color: aliceblue;
 }
 .addinvs{
-    /* width: 100%; */
-    /* height: 80px; */
+
     position: absolute;
     left: 80%;
     top: 50px;
@@ -327,7 +293,7 @@ margin-top: 50%;
   z-index: 999;          
 }
 .container {
- /* transform: translate(-50%, -50%); */
+
   z-index: 9999;
   overflow: hidden;
  
@@ -383,16 +349,10 @@ margin-top: 50%;
     }
 
 
-
-
-
-
-
-
     .invs-card {
  
     position: absolute;
-  top: 100%;   /* appears below main section */
+  top: 100%;   
   left: 14%;
 
   width: 27%;
@@ -412,15 +372,13 @@ margin-top: 50%;
 
 }
 
-
-/* List styling */
 .invs-card ol {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-/* Each item */
+
 .invs-card li {
   display: flex;
   justify-content: space-between;
@@ -430,13 +388,13 @@ margin-top: 50%;
   margin-bottom: 10px;
 
   border-radius: 10px;
- background: #fff;              /* very light green */
-  border: 1px solid #fff;        /* soft green border */
+ background: #fff;              
+  border: 1px solid #fff;       
   transition: 0.2s;
 }
 
 .invs-card li:hover {
-  background: lightgray;         /* light hover */
+  background: lightgray;       
   cursor: pointer;
   transition: 0.3s ease-in-out;
 }
@@ -473,7 +431,7 @@ margin-top: 50%;
 
 .days-card {
   position: absolute;
-  top: 100%;   /* 🔥 directly below "Lifetime" */
+  top: 100%;   
   left: 0;
   margin-top: 5px;
     width: 100%;
@@ -491,7 +449,6 @@ margin-top: 50%;
 
 
 
-/* 🔥 DAYS DROPDOWN BEAUTIFY */
 
 .days-card {
   background: #ffffff;
@@ -504,13 +461,11 @@ margin-top: 50%;
   animation: fadeIn 0.2s ease-in-out;
 }
 
-/* list reset */
 .days-card ol {
   margin: 0;
   padding: 0;
 }
 
-/* each option */
 .days-card li {
   list-style: none;
   padding: 10px 16px;
@@ -520,26 +475,22 @@ margin-top: 50%;
   transition: all 0.2s ease;
 }
 
-/* hover effect */
 .days-card li:hover {
   background: #f0fdf4;
   color: #16a34a;
   transform: translateX(4px);
 }
 
-/* active selected */
 .days-card li.active {
   background: #dcfce7;
   color: #15803d;
   font-weight: 600;
 }
 
-/* subtle divider */
 .days-card li:not(:last-child) {
   border-bottom: 1px solid #f1f5f9;
 }
 
-/* smooth dropdown animation */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -553,66 +504,6 @@ margin-top: 50%;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* ============================= */
-/* 🔥 GLOBAL POLISH */
-/* ============================= */
-
 body {
   background: #f8fafc;
   font-family: 'EB Garamond', serif;
@@ -623,9 +514,7 @@ body {
   transition: all 0.2s ease-in-out;
 }
 
-/* ============================= */
-/* 🔥 MAIN SECTION */
-/* ============================= */
+
 
 .main-section {
   margin-top: 40px;
@@ -638,19 +527,16 @@ body {
   color: #0f172a;
 }
 
-/* dropdown arrow */
-/* normal state */
+
 .arr i {
   transition: transform 0.3s ease, color 0.3s ease;
 }
 
-/* clicked state */
 .arr i.rotate {
   transform: rotate(180deg);
   color: #22c55e;
 }
 
-/* add button */
 .addinvs button {
   background: linear-gradient(135deg, #22c55e, #16a34a);
   color: white;
@@ -664,9 +550,6 @@ body {
   box-shadow: 0 12px 25px rgba(34,197,94,0.4);
 }
 
-/* ============================= */
-/* 🔥 INVESTMENT CARD */
-/* ============================= */
 
 .invs-card {
   border-radius: 16px;
@@ -687,10 +570,6 @@ body {
 
 
 
-/* ============================= */
-/* 🔥 AMOUNT SECTION */
-/* ============================= */
-
 .amount {
   margin-top: 40px;
   padding: 0 8%;
@@ -702,21 +581,16 @@ body {
   color: #1e293b;
 }
 
-/* highlight current value */
 #currentvalue {
   color: #0f172a;
   font-weight: 600;
 }
 
-/* return color */
 #lifetime {
   color: #16a34a;
   font-weight: 600;
 }
 
-/* ============================= */
-/* 🔥 DAY DROPDOWN */
-/* ============================= */
 
 .day-wrapper {
   cursor: pointer;
@@ -727,7 +601,6 @@ body {
   color: #334155;
 }
 
-/* dropdown */
 .days-card {
   border-radius: 14px;
   box-shadow: 0 12px 30px rgba(0,0,0,0.15);
@@ -747,16 +620,12 @@ body {
   transform: translateX(6px);
 }
 
-/* active */
 .days-card li.active {
   background: #dcfce7;
   color: #15803d;
   font-weight: 600;
 }
 
-/* ============================= */
-/* 🔥 MODAL (ADD INVESTMENT) */
-/* ============================= */
 
 .container {
   border-radius: 16px;
@@ -782,25 +651,18 @@ body {
   box-shadow: 0 0 0 2px rgba(34,197,94,0.2);
 }
 
-/* submit button */
 .container button {
   border-radius: 10px;
   font-weight: 600;
   letter-spacing: 0.5px;
 }
 
-/* ============================= */
-/* 🔥 OVERLAY */
-/* ============================= */
 
 .blur {
   backdrop-filter: blur(8px);
   background: rgba(0,0,0,0.3);
 }
 
-/* ============================= */
-/* 🔥 ANIMATIONS */
-/* ============================= */
 
 @keyframes fadeIn {
   from {
@@ -818,17 +680,6 @@ body {
     border: 2px solid black;
 }
 
-
-
-
-
-
-
-
-
-
-/* 🔥 INVESTOR LIST CONTAINER */
-/* 🔥 INVESTOR GROUP */
 .invs-card ol {
   margin-bottom: 16px;
   padding: 12px;
@@ -840,7 +691,6 @@ body {
   box-shadow: 0 6px 18px rgba(0,0,0,0.06);
 }
 
-/* 🔥 EACH ROW */
 .invs-card li {
   display: flex;
   justify-content: space-between;
@@ -857,13 +707,11 @@ body {
   font-size: 14px;
 }
 
-/* 🔥 HOVER (NO SCALE) */
 .invs-card li:hover {
   background: #f1f5f9;
   border-color: #cbd5e1;
 }
 
-/* 🔥 INVESTOR TITLE */
 .invs-card li strong {
   color: #0f172a;
   font-size: 15px;
@@ -871,5 +719,236 @@ body {
 
 
 
+.extra-dashboard {
+  margin-top: 60px;
+  padding: 40px 8%;
+  background: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
 
 
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.summary-cards .card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  border: 1px solid #e2e8f0;
+  transition: all 0.25s ease;
+  text-align: center;
+}
+
+.summary-cards .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 35px rgba(0,0,0,0.12);
+}
+
+.summary-cards h3 {
+  font-size: 14px;
+  color: #64748b;
+  margin-bottom: 10px;
+}
+
+.summary-cards p {
+  font-size: 22px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+
+.risk-box {
+  background: linear-gradient(135deg, #ffffff, #f1f5f9);
+  border-left: 6px solid #22c55e;
+  padding: 18px 22px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+.risk-box h3 {
+  font-size: 16px;
+  margin-bottom: 6px;
+  color: #0f172a;
+}
+
+#risk-level {
+  font-weight: 600;
+  color: #16a34a;
+}
+
+
+.best-performer {
+  background: #0f172a;
+  color: white;
+  padding: 18px 22px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.best-performer h3 {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+#best-investor {
+  font-size: 18px;
+  font-weight: 600;
+  color: #38bdf8;
+}
+
+
+.category-breakdown {
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.category-breakdown h3 {
+  margin-bottom: 15px;
+  color: #0f172a;
+}
+
+.category-breakdown p {
+  margin: 10px 0 5px;
+  font-size: 14px;
+  color: #475569;
+}
+
+.bar {
+  width: 100%;
+  height: 10px;
+  background: #e2e8f0;
+  border-radius: 50px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+#stock-bar,
+#crypto-bar,
+#bond-bar {
+  height: 100%;
+  width: 0%;
+  border-radius: 50px;
+  transition: width 0.5s ease;
+}
+
+#stock-bar {
+  background: #22c55e;
+}
+
+#crypto-bar {
+  background: #38bdf8;
+}
+
+#bond-bar {
+  background: #f59e0b;
+}
+
+
+.transaction-history {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.transaction-history h3 {
+  margin-bottom: 12px;
+  color: #0f172a;
+}
+
+#transaction-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#transaction-list li {
+  padding: 10px 12px;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 14px;
+  color: #334155;
+  transition: 0.2s;
+}
+
+#transaction-list li:hover {
+  background: #f8fafc;
+  padding-left: 16px;
+}
+
+
+@media (max-width: 768px) {
+  .summary-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .extra-dashboard {
+    padding: 20px;
+  }
+}
+
+.goal-section {
+  margin-top: 30px;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  border: 1px solid #e2e8f0;
+  
+}
+
+
+.goal-section h3 {
+  font-size: 18px;
+  color: #0f172a;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.goal-section input {
+  width: 99%;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  outline: none;
+  font-size: 14px;
+  transition: 0.2s ease;
+  margin-bottom: 12px;
+}
+
+.goal-section input:focus {
+  border-color: #22c55e;
+  box-shadow: 0 0 0 3px rgba(34,197,94,0.15);
+}
+
+.goal-section button {
+  width: 100%;
+  padding: 10px;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+
+}
+
+.goal-section button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(34,197,94,0.3);
+}
+
+#goal-result {
+  margin-top: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+}

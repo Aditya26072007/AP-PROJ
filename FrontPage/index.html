@@ -34,12 +34,7 @@
           <li>
             <a href="../AboutUS/AboutUs.html">AboutUs</a>
           </li>
-          <!-- <li>
-            <a href="index.html">Home</a>
-          </li>
-          <li>
-            <a href="index.html">Home</a>
-          </li> -->
+         
         </ol>
       </div>
       <div class="search">
@@ -80,7 +75,7 @@
         &nbsp;&nbsp; <i class="fa-solid fa-angle-down  dropdown" ></i>
       </div> 
       <div class="addinvs">
-      <button><i class="fa-solid fa-plus"></i> Add Investment</button>
+      <button><i class="fa-solid fa-plus"></i> Add Investor</button>
     </div>
     <div class="invs-card hidden">
             <ol>
@@ -127,7 +122,7 @@
     <div class="container hidden">
   <h2>Add Investment</h2>
 <div class="cross">X</div>
-  <!-- Investment Type -->
+  
   <label>Investment Type</label>
   <select id="type" onchange="updateOptions()">
     <option value="">Select Type</option>
@@ -137,21 +132,21 @@
     <option value="Bond">Bond</option>
   </select>
 
-  <!-- Investment Name (Dynamic) -->
+  
   <label>Investment</label>
   <select id="investment">
     <option>Select option</option>
   </select>
 
-  <!-- Amount -->
+ 
   <label>Amount (₹)</label>
   <input type="number" id="amount" placeholder="Enter amount">
 
-  <!-- Date -->
+
   <label>Date of Investment</label>
   <input type="date" id="date">
 
-  <!-- Submit -->
+
   <button onclick="addInvestment()">Add Investment</button>
 </div>
 
@@ -159,6 +154,81 @@
 
 
 <div class="blur hidden"></div>
+
+
+
+
+<div class="extra-dashboard">
+
+
+  <div class="summary-cards">
+    <div class="card">
+      <h3>Total Invested</h3>
+      <p id="total-invested">₹0</p>
+    </div>
+
+    <div class="card">
+      <h3>Current Value</h3>
+      <p id="summary-current">₹0</p>
+    </div>
+
+    <div class="card">
+      <h3>Profit / Loss</h3>
+      <p id="profit-loss">₹0</p>
+    </div>
+
+    <div class="card">
+      <h3>Return %</h3>
+      <p id="return-percent">0%</p>
+    </div>
+  </div>
+
+
+  
+  <div class="risk-box">
+    <h3>Risk Analysis</h3>
+    <p id="risk-level">Calculating...</p>
+  </div>
+
+
+ 
+  <div class="best-performer">
+    <h3>🏆 Best Performer</h3>
+    <p id="best-investor">No data yet</p>
+  </div>
+
+
+  
+  <div class="category-breakdown">
+    <h3>Portfolio Breakdown</h3>
+
+    <p>Stocks</p>
+    <div class="bar"><div id="stock-bar"></div></div>
+
+    <p>Crypto</p>
+    <div class="bar"><div id="crypto-bar"></div></div>
+
+    <p>Bonds</p>
+    <div class="bar"><div id="bond-bar"></div></div>
+  </div>
+<div class="goal-section">
+  <h3>🎯 Goal Calculator</h3>
+
+  <input type="number" id="goal-input" placeholder="Enter your target amount (₹)">
+
+  <button id="goal-btn">Calculate</button>
+
+  <p id="goal-result">Enter a goal to see estimate</p>
+</div>
+
+  
+  <div class="transaction-history">
+    <h3>Transaction History</h3>
+    <ul id="transaction-list"></ul>
+  </div>
+
+</div>
+
 
 
 

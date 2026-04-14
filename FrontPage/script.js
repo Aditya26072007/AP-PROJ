@@ -139,6 +139,7 @@ if (!investor.investments) {
   investor.investments = [];
 }
 investor.investments.push(data);
+updateDashboardUI();
   savetolocal();
  renderInvestors();
 
@@ -182,86 +183,6 @@ fetch("http://localhost:8080/portfolioproject/AP-Project%20-%20Copy/FrontPagecop
 
 const invsText = document.querySelector(".invs");
 
-//   function renderTask(data){
-
-
-
-//     let ol = document.querySelector(`[data-id="${data.id}"]`);
-
-
-//       if (!ol) {
-//     ol = document.createElement("ol");
-//     ol.setAttribute("data-id", data.id);
-
-
-
-//     const p=document.createElement("p");
-//     p.textContent=`investors`;
-//     ol.appendChild(p);
-//      const li = document.createElement("li");
-
-//   li.innerHTML = `${data.name} - ₹${data.amount} 
-//   <button class="dlt-btn">Remove</button>
-//   <button class="dlt-btn" id="addBtn">Add</button>`;
-// ol.appendChild(li);
-//   const btn = li.querySelector(".dlt-btn");
-//   const addbtn1 = li.querySelector("#addBtn");
-//   li.addEventListener("click", () => {
-//     //  store full object
-//     selectedInvestment = data;
-
-//     //  update UI
-//     invsText.textContent = `${data.name}- ₹${data.amount}`;
-
-//     console.log("Selected:", selectedInvestment); // for testing
-//       });
- 
-//   addbtn1.addEventListener("click",(e)=>{
-//     e.stopPropagation(); // prevents unwanted bubbling
-
-// //add investment logic here (similar to addInvestment function but pre-filled with selectedInvestment data)
-
-
-
-
-// listinvs.classList.remove("hidden");
-// blur.classList.remove("hidden");
-//   });
-
-// // cross.addEventListener("click",()=>{
-
-// //     listinvs.classList.add("hidden");
-// //     blur.classList.add("hidden");
-// // });
-
-
-
-
-// //
-
-//     li.innerHTML = `${data.name} - ₹${data.amount} 
-//   <button class="dlt-btn">Remove</button>
-//   <button class="dlt-btn" id="addBtn">Add</button>`;
-// ol.appendChild(li);
-
-//   btn.addEventListener("click", (e) => {
-//     e.stopPropagation(); 
-//     investors = investors.filter((t) => t.id !== data.id);
-//     li.remove();
-//     p.remove();
-//     savetolocal();
-//     calculatetoatldisplay();
-//     calculateTotal();
-//   });
-
-//   storer.appendChild(ol);
-// }
-
-//   }
-
-
-
-
 
 
 function renderInvestors() {
@@ -277,7 +198,6 @@ function renderInvestors() {
       <button class="del-btn">🗑</button>
     `;
 
-    // select investor
    header.addEventListener("click", (e) => {
   if (e.target.tagName === "BUTTON") return;
 
@@ -286,13 +206,12 @@ function renderInvestors() {
 
   // 🔥 refresh UI for selected investor
   calculatetoatldisplay();
+  updateDashboardUI();
 });
 
-    // delete investor
     header.querySelector(".del-btn").addEventListener("click", (e) => {
   e.stopPropagation();
 
-  // 🔥 if deleted investor is selected → reset
   if (currentInvestorId === inv.id) {
     currentInvestorId = null;
     invsText.textContent = "Select Investment";
@@ -329,6 +248,7 @@ function renderInvestors() {
       li.querySelector(".dlt-btn").addEventListener("click", (e) => {
         e.stopPropagation();
         inv.investments = inv.investments.filter(i => i.id !== item.id);
+        updateDashboardUI();
         savetolocal();
         renderInvestors();
       });
@@ -346,13 +266,7 @@ dropdown.addEventListener("click",()=>{
 
 
 
-// document.addEventListener("click", (e) => {
-//   if (!e.target.closest(".main-section")) {
-//     invsCard.classList.add("hidden");
-//     dropdown.classList.remove("rotate");
-//   }
-// });
-// investors.forEach(investor => renderTask(investor));
+
 renderInvestors();
 
 
@@ -439,7 +353,7 @@ function getCurrentPrice(inv) {
   const days =
     Math.floor((today - investDate) / (1000 * 60 * 60 * 24));
 
-  // 🔥 assume 0.05% daily growth
+  //  assumed 0.05% daily growth
   const growthRate = 0.0005;
 
   const currentPrice = basePrice * Math.pow(1 + growthRate, days);
@@ -599,166 +513,274 @@ if (!currentInvestorId) return;
 updateTimeDisplay();
 
 
-// const swaps=document.querySelectorAll(".invs-card ol li");
-
-// swaps.forEach((swap)=>{
-// swaps.addEventListener("click",()=>{
-// swap.classList.add("invs");
-// swap.classList.remove("invs-card")
-// });
-// });
 
 
-// function calculateTotal() {
+function updateDashboardUI() {
+  const investor = investors.find(i => i.id === currentInvestorId);
 
-// const totalInvested = investors.reduce((sum, item) => sum + Number(item.amount), 0);
+  let totalInvested = 0;
+  let totalCurrent = 0;
 
-// return totalInvested;
-// }
+  if (!investor) {
+    setDashboardDefaults();
+    return;
+  }
 
-// function calculatetoatldisplay(){
-//   console.log(calculateTotal());
-// }
+  (investor.investments || []).forEach(inv => {
+    const currentPrice = getCurrentPrice(inv);
 
-// const originalprice=calculateTotal();
-// console.log(originalprice);
+    if (currentPrice && inv.units) {
+      totalInvested += Number(inv.amount);
+      totalCurrent += inv.units * currentPrice;
+    }
+  });
 
+  const profit = totalCurrent - totalInvested;
+  const percent = totalInvested ? (profit / totalInvested) * 100 : 0;
 
-// const symbolMap = {
+  // 💰 Summary Cards
+  document.getElementById("total-invested").textContent =
+    "₹" + totalInvested.toFixed(2);
 
-//   // Stocks
-//   "Reliance": "RELIANCE.NS",
-//   "TCS": "TCS.NS",
-//   "Infosys": "INFY.NS",
+  document.getElementById("summary-current").textContent =
+    "₹" + totalCurrent.toFixed(2);
 
-//   // Mutual Funds
-//   // "HDFC Midcap": "HDFCMIDCAP.NS",
-//   // "SBI Bluechip": "SBIBLUECHIP.NS",
-//   // "Axis Growth": "AXISGROWTH.NS",
+  document.getElementById("profit-loss").textContent =
+    "₹" + profit.toFixed(2);
 
-//   // Crypto
-//   "Bitcoin": "BTC-USD",
-//   "Ethereum": "ETH-USD",
-//   "Solana": "SOL-USD",
+  document.getElementById("return-percent").textContent =
+    percent.toFixed(2) + "%";
 
-//   // Bonds (approx ETFs because bonds themselves don't trade like stocks)
-//   "Gov Bond": "IGLB",
-//   "Corporate Bond": "LQD",
-//   "Tax-Free Bond": "MUB"
-// };
+  updateRisk(investor);
 
+  updateBestPerformer(investor);
 
-// async function fetchAllPrices(){
+  updateBreakdown(investor);
 
-// const symbols = Object.values(symbolMap).join(",");
-
-// const api =
-// `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${symbols}`;
-
-// const proxy =
-// "https://api.allorigins.win/get?url=" + encodeURIComponent(api);
-
-// const res = await fetch(proxy);
-// const data = await res.json();
-
-// // proxy returns JSON string inside "contents"
-// const parsed = JSON.parse(data.contents);
-
-// return parsed.quoteResponse.result || [];
-
-// }
-// async function get10YearHistory(symbol){
-
-// const api =
-// `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?range=10y&interval=1mo`;
-
-// const proxy =
-// "https://api.allorigins.win/raw?url=" + encodeURIComponent(api);
-
-// const res = await fetch(proxy);
-// const data = await res.json();
-
-// const prices =
-// data.chart.result[0].indicators.quote[0].close;
-
-// const timestamps =
-// data.chart.result[0].timestamp;
-
-// return {prices, timestamps};
-
-// }
-// function convertDates(timestamps){
-
-// return timestamps.map(t =>
-// new Date(t * 1000).toLocaleDateString()
-// );
-
-// }
-
-// const prices = {};
-
-// async function loadPrices(){
-
-// try{
-
-// const result = await fetchAllPrices();
-
-// console.log("API result:", result);
-
-// result.forEach(asset=>{
-// prices[asset.symbol] = asset.regularMarketPrice;
-// });
-
-// }catch(err){
-
-// console.log("Error in loadPrices:", err);
-
-// }
-// }
+  updateTransactions(investor);
+}
 
 
-// async function init(){
-// console.log("init started");
-// await loadPrices();
-
-// const currentValue = newprice();
-
-// console.log("Current Portfolio Value:", currentValue);
-
-// }
-
-// init();
-// const currentpricemap={};
-// function newprice(){
-
-// let total = 0;
-
-// investors.forEach(inv=>{
-
-// const symbol = symbolMap[inv.name];
-// const price = prices[symbol];
-
-// if(price){
-
-// const units = inv.units ? inv.units : inv.amount / price;
-
-// const value = units * price;
-
-// if(!currentpricemap[inv.name]){
-// currentpricemap[inv.name] = 0;
-// }
-
-// currentpricemap[inv.name] += value;
-
-// total += value;
-
-// }
-
-// });
-
-// return total;
-
-// }
 
 
+
+
+
+
+
+
+
+
+
+function setDashboardDefaults() {
+  document.getElementById("total-invested").textContent = "₹0";
+  document.getElementById("summary-current").textContent = "₹0";
+  document.getElementById("profit-loss").textContent = "₹0";
+  document.getElementById("return-percent").textContent = "0%";
+
+  document.getElementById("risk-level").textContent = "Select investor";
+  document.getElementById("best-investor").textContent = "No data";
+
+  document.getElementById("stock-bar").style.width = "0%";
+  document.getElementById("crypto-bar").style.width = "0%";
+  document.getElementById("bond-bar").style.width = "0%";
+
+  document.getElementById("transaction-list").innerHTML = "";
+}
+
+
+
+
+
+
+
+
+
+
+
+
+function updateRisk(investor) {
+  if (!investor) return;
+
+  let stock = 0, crypto = 0, bond = 0, total = 0;
+
+  investor.investments.forEach(inv => {
+    const val = inv.amount;
+
+    total += Number(val);
+
+    if (inv.type === "Stock") stock += Number(val);
+    if (inv.type === "Crypto") crypto += Number(val);
+    if (inv.type === "Bond") bond += Number(val);
+  });
+
+  const cryptoPercent = total ? (crypto / total) * 100 : 0;
+
+  let risk = "Low 🟢";
+
+  if (cryptoPercent > 60) risk = "High 🔴";
+  else if (cryptoPercent > 30) risk = "Medium 🟡";
+
+  document.getElementById("risk-level").textContent = risk;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function updateBestPerformer(investor) {
+  if (!investor || investor.investments.length === 0) return;
+
+  let best = null;
+  let maxProfit = -Infinity;
+
+  investor.investments.forEach(inv => {
+    const currentPrice = getCurrentPrice(inv);
+    const value = inv.units * currentPrice;
+    const profit = value - inv.amount;
+
+    if (profit > maxProfit) {
+      maxProfit = profit;
+      best = inv.name;
+    }
+  });
+
+  document.getElementById("best-investor").textContent =
+    best ? best + " 🚀" : "No data";
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function updateBreakdown(investor) {
+  if (!investor) return;
+
+  let stock = 0, crypto = 0, bond = 0, total = 0;
+
+  investor.investments.forEach(inv => {
+    const val = Number(inv.amount);
+    total += val;
+
+    if (inv.type === "Stock") stock += val;
+    if (inv.type === "Crypto") crypto += val;
+    if (inv.type === "Bond") bond += val;
+  });
+
+  const stockP = total ? (stock / total) * 100 : 0;
+  const cryptoP = total ? (crypto / total) * 100 : 0;
+  const bondP = total ? (bond / total) * 100 : 0;
+
+  document.getElementById("stock-bar").style.width = stockP + "%";
+  document.getElementById("crypto-bar").style.width = cryptoP + "%";
+  document.getElementById("bond-bar").style.width = bondP + "%";
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const goalBtn = document.getElementById("goal-btn");
+
+  goalBtn.addEventListener("click", calculateGoalDays);
+
+});
+
+const goalBtn = document.getElementById("goal-btn");
+
+goalBtn.addEventListener("click", () => {
+  const goal = Number(document.getElementById("goal-input").value);
+  const resultBox = document.getElementById("goal-result");
+
+  const investor = investors.find(i => i.id === currentInvestorId);
+
+  if (!goal || goal <= 0) {
+    resultBox.textContent = "⚠️ Enter valid goal amount";
+    return;
+  }
+
+  if (!investor) {
+    resultBox.textContent = "⚠️ Select an investor first";
+    return;
+  }
+
+  let currentValue = 0;
+
+  investor.investments.forEach(inv => {
+    const price = getCurrentPrice(inv);
+    currentValue += inv.units * price;
+  });
+
+  if (currentValue <= 0) {
+    resultBox.textContent = "⚠️ No investments found";
+    return;
+  }
+
+  if (goal <= currentValue) {
+    resultBox.textContent = "🎉 You already achieved your goal!";
+    return;
+  }
+
+  const growthRate = 0.0005;
+  const dailyGain = currentValue * growthRate;
+
+  const remaining = goal - currentValue;
+  const daysNeeded = Math.ceil(remaining / dailyGain);
+
+  resultBox.textContent =
+    `⏳ You need approx ${daysNeeded} days to reach ₹${goal}`;
+});
+
+
+
+
+
+
+function updateTransactions(investor) {
+  const list = document.getElementById("transaction-list");
+  list.innerHTML = "";
+
+  if (!investor) return;
+
+  investor.investments.forEach(inv => {
+    const li = document.createElement("li");
+    li.textContent = `Added ${inv.name} - ₹${inv.amount} (${inv.type})`;
+    list.appendChild(li);
+  });
+}
 });

@@ -8,13 +8,26 @@ const listinvs=document.querySelector(".container");
 const blur = document.querySelector(".blur");
 const cross =document.querySelector(".cross");
 const invsCard = document.querySelector(".invs-card");
-  const storer=document.querySelector(".invs-card ol");
+  const storer=document.querySelector(".invs-card");
 let selectedInvestment = null;
 
 
 
 console.log(storer);
+let investors = JSON.parse(localStorage.getItem("investors")) || [];
+let currentInvestorId = null;
 addbtn.addEventListener("click",()=>{
+
+  const newInvestor = {
+  id: Date.now(),
+  investments: []
+};
+
+  investors.push(newInvestor);
+  currentInvestorId = newInvestor.id;
+
+  savetolocal();
+  renderInvestors();
 listinvs.classList.remove("hidden");
 blur.classList.remove("hidden");
 });
@@ -23,7 +36,7 @@ cross.addEventListener("click",()=>{
     listinvs.classList.add("hidden");
     blur.classList.add("hidden");
 });
-let investors=JSON.parse(localStorage.getItem("investors"))||[];
+
 
   const arrow1=document.querySelector(".amount .arr");
   const dayscard=document.querySelector(".days-card");
@@ -116,9 +129,16 @@ const buyPrice = fixedPrices[data.name];
     ? Number((Number(data.amount) / buyPrice).toFixed(6))
     : 0;
 
-  investors.push(data);
+  const investor = investors.find(i => i.id === currentInvestorId);
+
+if (!investor) {
+  alert("Select investor first");
+  return;
+}
+
+investor.investments.push(data);
   savetolocal();
-  renderTask(data);
+ renderInvestors();
 
   calculatetoatldisplay(); // 🔥 important
 
@@ -160,35 +180,163 @@ fetch("http://localhost:8080/portfolioproject/AP-Project%20-%20Copy/FrontPagecop
 
 const invsText = document.querySelector(".invs");
 
-  function renderTask(data){
-  const li = document.createElement("li");
+//   function renderTask(data){
 
-  li.innerHTML = `${data.name} - ₹${data.amount} 
-  <button class="dlt-btn">Remove</button>`;
 
-  const btn = li.querySelector(".dlt-btn");
-  li.addEventListener("click", () => {
-    //  store full object
-    selectedInvestment = data;
 
-    //  update UI
-    invsText.textContent = `${data.name}- ₹${data.amount}`;
+//     let ol = document.querySelector(`[data-id="${data.id}"]`);
 
-    console.log("Selected:", selectedInvestment); // for testing
-  });
-  btn.addEventListener("click", (e) => {
-    e.stopPropagation(); 
-    investors = investors.filter((t) => t.id !== data.id);
-    li.remove();
-    savetolocal();
+
+//       if (!ol) {
+//     ol = document.createElement("ol");
+//     ol.setAttribute("data-id", data.id);
+
+
+
+//     const p=document.createElement("p");
+//     p.textContent=`investors`;
+//     ol.appendChild(p);
+//      const li = document.createElement("li");
+
+//   li.innerHTML = `${data.name} - ₹${data.amount} 
+//   <button class="dlt-btn">Remove</button>
+//   <button class="dlt-btn" id="addBtn">Add</button>`;
+// ol.appendChild(li);
+//   const btn = li.querySelector(".dlt-btn");
+//   const addbtn1 = li.querySelector("#addBtn");
+//   li.addEventListener("click", () => {
+//     //  store full object
+//     selectedInvestment = data;
+
+//     //  update UI
+//     invsText.textContent = `${data.name}- ₹${data.amount}`;
+
+//     console.log("Selected:", selectedInvestment); // for testing
+//       });
+ 
+//   addbtn1.addEventListener("click",(e)=>{
+//     e.stopPropagation(); // prevents unwanted bubbling
+
+// //add investment logic here (similar to addInvestment function but pre-filled with selectedInvestment data)
+
+
+
+
+// listinvs.classList.remove("hidden");
+// blur.classList.remove("hidden");
+//   });
+
+// // cross.addEventListener("click",()=>{
+
+// //     listinvs.classList.add("hidden");
+// //     blur.classList.add("hidden");
+// // });
+
+
+
+
+// //
+
+//     li.innerHTML = `${data.name} - ₹${data.amount} 
+//   <button class="dlt-btn">Remove</button>
+//   <button class="dlt-btn" id="addBtn">Add</button>`;
+// ol.appendChild(li);
+
+//   btn.addEventListener("click", (e) => {
+//     e.stopPropagation(); 
+//     investors = investors.filter((t) => t.id !== data.id);
+//     li.remove();
+//     p.remove();
+//     savetolocal();
+//     calculatetoatldisplay();
+//     calculateTotal();
+//   });
+
+//   storer.appendChild(ol);
+// }
+
+//   }
+
+
+
+
+
+
+function renderInvestors() {
+  storer.innerHTML = "";
+
+  investors.forEach((inv, index) => {
+    const ol = document.createElement("ol");
+
+    const header = document.createElement("li");
+    header.innerHTML = `
+      <strong>Investor ${index + 1}</strong>
+      <button class="add-btn">➕</button>
+      <button class="del-btn">🗑</button>
+    `;
+
+    // select investor
+   header.addEventListener("click", (e) => {
+  if (e.target.tagName === "BUTTON") return;
+
+  currentInvestorId = inv.id;
+  invsText.textContent = `Investor ${index + 1}`;
+
+  // 🔥 refresh UI for selected investor
+  calculatetoatldisplay();
+});
+
+    // delete investor
+    header.querySelector(".del-btn").addEventListener("click", (e) => {
+  e.stopPropagation();
+
+  // 🔥 if deleted investor is selected → reset
+  if (currentInvestorId === inv.id) {
+    currentInvestorId = null;
+    invsText.textContent = "Select Investment";
+  }
+
+  investors = investors.filter(i => i.id !== inv.id);
+  savetolocal();
+  renderInvestors();
+  if (!investors.find(i => i.id === currentInvestorId)) {
+    currentInvestorId = null;
+    invsText.textContent = "Select Investment";
     calculatetoatldisplay();
-    calculateTotal();
-  });
-
-  storer.appendChild(li);
 }
+});
 
+    // add investment
+    header.querySelector(".add-btn").addEventListener("click", (e) => {
+      e.stopPropagation();
+      currentInvestorId = inv.id;
+      listinvs.classList.remove("hidden");
+      blur.classList.remove("hidden");
+    });
 
+    ol.appendChild(header);
+
+    // investments
+    inv.investments.forEach((item) => {
+      const li = document.createElement("li");
+      li.innerHTML = `
+        ${item.name} - ₹${item.amount}
+        <button class="dlt-btn">Remove</button>
+      `;
+
+      li.querySelector(".dlt-btn").addEventListener("click", (e) => {
+        e.stopPropagation();
+        inv.investments = inv.investments.filter(i => i.id !== item.id);
+        savetolocal();
+        renderInvestors();
+      });
+
+      ol.appendChild(li);
+    });
+
+    storer.appendChild(ol);
+  });
+}
 dropdown.addEventListener("click",()=>{
   invsCard.classList.toggle("hidden");
 });
@@ -202,7 +350,8 @@ dropdown.addEventListener("click",()=>{
 //     dropdown.classList.remove("rotate");
 //   }
 // });
-investors.forEach(investor => renderTask(investor));
+// investors.forEach(investor => renderTask(investor));
+renderInvestors();
 
 
 
@@ -214,7 +363,18 @@ function calculateReturns() {
   let totalInvestment = 0;
   let totalCurrent = 0;
 
-  investors.forEach(inv => {
+  const investor = investors.find(i => i.id === currentInvestorId);
+
+  if (!investor) {
+    return {
+      totalInvestment: 0,
+      totalCurrent: 0,
+      profit: 0,
+      percent: 0
+    };
+  }
+
+  investor.investments.forEach(inv => {
     const currentPrice = getCurrentPrice(inv);
 
     if (currentPrice && inv.units) {
@@ -240,7 +400,19 @@ function calculateReturns() {
 
 
 function calculatetoatldisplay() {
-  const daytext=document.querySelector("#day-wise-return");
+  const daytext = document.querySelector("#day-wise-return");
+
+  if (!currentInvestorId) {
+    document.getElementById("currentvalue").textContent =
+      "Current Value: ₹0";
+
+    document.getElementById("lifetime").textContent =
+      "Return: 0%";
+
+    daytext.textContent = "Lifetime";
+    return;
+  }
+
   const result = calculateReturns();
 
   document.getElementById("currentvalue").textContent =
@@ -249,8 +421,7 @@ function calculatetoatldisplay() {
   document.getElementById("lifetime").textContent =
     "Return: " + result.percent.toFixed(2) + "%";
 
-
-    daytext.textContent = `Lifetime`;
+  daytext.textContent = `Lifetime`;
 }
 
 
@@ -297,7 +468,11 @@ function portfolioAtDate(targetDate) {
   let totalInvestment = 0;
   let totalValue = 0;
 
-  investors.forEach(inv => {
+  const investor = investors.find(i => i.id === currentInvestorId);
+
+  if (!investor) return { totalValue: 0, percent: 0 };
+
+  investor.investments.forEach(inv => {
     const investDate = new Date(inv.date);
 
     if (targetDate >= investDate) {
@@ -310,6 +485,7 @@ function portfolioAtDate(targetDate) {
   });
 
   const profit = totalValue - totalInvestment;
+
   const percent =
     totalInvestment > 0 ? (profit / totalInvestment) * 100 : 0;
 
@@ -361,7 +537,7 @@ function updateTimeDisplay() {
   li.forEach(item=>{
     item.addEventListener("click",(e)=>{
 
-
+if (!currentInvestorId) return;
        const data = calculateTimeViews();
       console.log(e.target.textContent);
     if(item===today)  {

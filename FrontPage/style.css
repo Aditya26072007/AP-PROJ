@@ -239,11 +239,11 @@ margin-top: 50%;
  .main-section  button{
     height: 30px;
    width: 80px;
-   border-radius: 5px;
+   /* border-radius: 5px; */
     border: none;
     /* background-color: #E8F5BD;
     color: black; */
-    border-radius: 50%;
+    border-radius: 500px;
     font-weight: bold;
     cursor: pointer;
     box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.3);

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Walley-Invest Smart</title>
+  <link rel="stylesheet" href="styl1.css">
+</head>
+
+<body>
+
+
+  <div class="navbar">
+    <h1 class="logo">WALLEY</h1>
+
+  </div>
+
+  <div class="hero">
+
+    <div class="overlay"></div>
+
+    <div class="content">
+      <h1>Invest Now, Make Big Tomorrow</h1>
+<div class="email-box">
+  <input type="email" id="email" placeholder="Email address">
+  <input type="password" id="password" placeholder="Password">
+  <button onclick="validateForm()">Get Started ></button>
+  <p id="error-msg" style="color:red; margin-top:10px;"></p>
+</div>
+    </div>
+
+  </div>
+
+
+<script>
+function validateForm() {
+  let email = document.getElementById("email").value;
+  let password = document.getElementById("password").value;
+  let errorMsg = document.getElementById("error-msg");
+
+  if (email === "" || password === "") {
+  errorMsg.innerText = "All fields are required!";
+  return;
+  }
+
+  let atIndex = email.indexOf("@");
+  let dotIndex = email.lastIndexOf(".");
+
+  if (atIndex <= 0) {
+    errorMsg.innerText = "Email must contain @ symbol!";
+    return;
+  }
+
+  if (dotIndex <= atIndex + 1) {
+    errorMsg.innerText = "Dot must come after @!";
+    return;
+  }
+
+  if (dotIndex === email.length - 1) {
+    errorMsg.innerText = "Dot cannot be last character!";
+    return;
+  }
+
+  if (password.length < 6) {
+    errorMsg.innerText = "Password must be at least 6 characters!";
+    return;
+  }
+
+  errorMsg.style.color = "lightgreen";
+  errorMsg.innerText = "Success!";
+}
+</script>
+
+</body>
+</html> 

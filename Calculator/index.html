@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculator</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <nav>
+      <img src="../FrontPage/growwpng.png" alt="" />
+
+      <div class="nav-content">
+        <ol>
+          <li>
+            <a href="index.html">Dashboard</a>
+          </li>
+          <li>
+            <a href="index.html">Overview</a>
+          </li>
+          <li>
+            <a href="index.html">Performance</a>
+          </li>
+          <li>
+            <a href="index.html">Transaction</a>
+          </li>
+          <li>
+            <a href="../AboutUS/AboutUs.html">AboutUs</a>
+          </li>
+        </ol>
+      </div>
+      <div class="search">
+        <input type="text" placeholder="Search" id="searchtxt" />
+        <div class="sbtn">
+          <i class="fa-solid fa-magnifying-glass" id="sea-btn"></i>
+        </div>
+      </div>
+      <div class="login">
+        <button><a href="../LoginPage/login.html">Login</a></button>
+      </div>
+    </nav>
+    <div class="sip-container">
+      <div class="sip-left">
+        <h2>How much you plan to invest monthly</h2>
+        <input type="number" id="monthly" value="10000" />
+
+        <h2>For how many years you plan to keep investing</h2>
+        <input type="number" id="years" value="10" />
+
+        <h2>What is the expected rate of return</h2>
+        <div class="range-box">
+          <span id="rate-value">12%</span>
+          <input type="range" id="rate" min="1" max="20" value="12" />
+        </div>
+
+        <button id="calculate-btn">Calculate</button>
+      </div>
+
+      <div class="sip-right">
+        <h3>Worth of investment could be</h3>
+        <h1 id="result">₹0</h1>
+        <p id="invested-text"></p>
+        <div class="graph-box">
+          <canvas id="sipChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="sip-info">
+      <div class="sip-warning">
+        <h2>⚠ Only calculating your returns is not enough...</h2>
+        <p>
+          Invest smarter by planning your financial future, not just estimating
+          returns.
+        </p>
+      </div>
+
+      <div class="sip-content">
+        <h2>What is an SIP calculator?</h2>
+        <p>
+          It is an online tool that helps you estimate the returns on your
+          mutual fund investments made through Systematic Investment Plans
+          (SIPs).
+        </p>
+
+        <p>
+          This calculator makes it easy to skip complex math and try out
+          different SIP amounts, durations, and returns.
+        </p>
+
+        <a href="#">See More →</a>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

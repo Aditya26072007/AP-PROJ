@@ -34,7 +34,6 @@
           <li>
             <a href="../AboutUS/AboutUs.html">AboutUs</a>
           </li>
-         
         </ol>
       </div>
       <div class="search">
@@ -43,196 +42,165 @@
           <i class="fa-solid fa-magnifying-glass" id="sea-btn"></i>
         </div>
       </div>
-      <div class="login"><button>Login</button></div>
+      <div class="login">
+        <button><a href="../LoginPage/login.html">Login</a></button>
+      </div>
     </nav>
 
-
-
     <div class="hero-section">
-     <div class="hero-left">
+      <div class="hero-left">
         <h1>Your personal Portfolio Manager</h1>
-      <ul>
-        <li>Hassle-free & automated transaction imports</li>
-        <li>Powerful performance analytics and comparisons</li>
-        <li>Detailed & ready to file tax statement</li>
-        <li>Automated capturing of all dividends, bonuses, rights, and splits</li>
-        <li>Manage and track your and your family's investments in one place</li>
-      </ul>
-      <p>This undoubtedly makes it India’s best portfolio management system. Experience the magic yourself!</p>
-     </div>
-     <div class="hero-right">
-      <div class="hero-img">
-        <img src="portfolio1.svg">
+        <ul>
+          <li>Hassle-free & automated transaction imports</li>
+          <li>Powerful performance analytics and comparisons</li>
+          <li>Detailed & ready to file tax statement</li>
+          <li>
+            Automated capturing of all dividends, bonuses, rights, and splits
+          </li>
+          <li>
+            Manage and track your and your family's investments in one place
+          </li>
+        </ul>
+        <p>
+          This undoubtedly makes it India’s best portfolio management system.
+          Experience the magic yourself!
+        </p>
       </div>
-     </div>
+      <div class="hero-right">
+        <div class="hero-img">
+          <img src="portfolio1.svg" />
+        </div>
+      </div>
     </div>
-
 
     <div class="main-section">
-<div class="invs">
-      Select Investment</div>
+      <div class="invs">Select Investment</div>
       <div class="arr">
-        &nbsp;&nbsp; <i class="fa-solid fa-angle-down  dropdown" ></i>
-      </div> 
-      <div class="addinvs">
-      <button><i class="fa-solid fa-plus"></i> Add Investor</button>
-    </div>
-    <div class="invs-card hidden">
-            <ol>
-        
-      </ol>
-      
-      
-    </div>
-
-    
-</div>
-
-<div class="amount">
-      <p id="currentvalue">Current Value </p>
-        <div class="day-wrapper">
-
-  <p id="day-wise-return">
-    Lifetime  
-    
-  </p>
-  
-
-  <div class="days-card hidden" >
-    <ol>
-      <li id="today-return">Today</li>
-      <li id="yesterday-return">Yesterday</li>
-      <li id="one-month-return">1 Month</li>
-      <li id="three-months-return">3 Months</li>
-      <li id="lifetime-return">Lifetime</li>
-    </ol>
-  </div>
-
-</div>
-<div class="arr">
-        &nbsp;&nbsp; <i class="fa-solid fa-angle-down  dropdown" ></i>
-      </div> 
-        <p id="lifetime">Return
-          
-        </p>
-        
+        &nbsp;&nbsp; <i class="fa-solid fa-angle-down dropdown"></i>
       </div>
-    
+      <div class="addinvs">
+        <button><i class="fa-solid fa-plus"></i> Add Investor</button>
+      </div>
+      <div class="invs-card hidden">
+        <ol></ol>
+      </div>
+    </div>
+
+    <div class="amount">
+      <p id="currentvalue">Current Value</p>
+      <div class="day-wrapper">
+        <p id="day-wise-return">Lifetime</p>
+
+        <div class="days-card hidden">
+          <ol>
+            <li id="today-return">Today</li>
+            <li id="yesterday-return">Yesterday</li>
+            <li id="one-month-return">1 Month</li>
+            <li id="three-months-return">3 Months</li>
+            <li id="lifetime-return">Lifetime</li>
+          </ol>
+        </div>
+      </div>
+      <div class="arr">
+        &nbsp;&nbsp; <i class="fa-solid fa-angle-down dropdown"></i>
+      </div>
+      <p id="lifetime">Return</p>
+    </div>
 
     <div class="container hidden">
-  <h2>Add Investment</h2>
-<div class="cross">X</div>
-  
-  <label>Investment Type</label>
-  <select id="type" onchange="updateOptions()">
-    <option value="">Select Type</option>
-    <option value="Stock">Stock</option>
-    <!-- <option value="Mutual Fund">Mutual Fund</option> -->
-    <option value="Crypto">Crypto</option>
-    <option value="Bond">Bond</option>
-  </select>
+      <h2>Add Investment</h2>
+      <div class="cross">X</div>
 
-  
-  <label>Investment</label>
-  <select id="investment">
-    <option>Select option</option>
-  </select>
+      <label>Investment Type</label>
+      <select id="type" onchange="updateOptions()">
+        <option value="">Select Type</option>
+        <option value="Stock">Stock</option>
+        <!-- <option value="Mutual Fund">Mutual Fund</option> -->
+        <option value="Crypto">Crypto</option>
+        <option value="Bond">Bond</option>
+      </select>
 
- 
-  <label>Amount (₹)</label>
-  <input type="number" id="amount" placeholder="Enter amount">
+      <label>Investment</label>
+      <select id="investment">
+        <option>Select option</option>
+      </select>
 
+      <label>Amount (₹)</label>
+      <input type="number" id="amount" placeholder="Enter amount" />
 
-  <label>Date of Investment</label>
-  <input type="date" id="date">
+      <label>Date of Investment</label>
+      <input type="date" id="date" />
 
-
-  <button onclick="addInvestment()">Add Investment</button>
-</div>
-
-
-
-
-<div class="blur hidden"></div>
-
-
-
-
-<div class="extra-dashboard">
-
-
-  <div class="summary-cards">
-    <div class="card">
-      <h3>Total Invested</h3>
-      <p id="total-invested">₹0</p>
+      <button onclick="addInvestment()">Add Investment</button>
     </div>
 
-    <div class="card">
-      <h3>Current Value</h3>
-      <p id="summary-current">₹0</p>
+    <div class="blur hidden"></div>
+
+    <div class="extra-dashboard">
+      <div class="summary-cards">
+        <div class="card">
+          <h3>Total Invested</h3>
+          <p id="total-invested">₹0</p>
+        </div>
+
+        <div class="card">
+          <h3>Current Value</h3>
+          <p id="summary-current">₹0</p>
+        </div>
+
+        <div class="card">
+          <h3>Profit / Loss</h3>
+          <p id="profit-loss">₹0</p>
+        </div>
+
+        <div class="card">
+          <h3>Return %</h3>
+          <p id="return-percent">0%</p>
+        </div>
+      </div>
+
+      <div class="risk-box">
+        <h3>Risk Analysis</h3>
+        <p id="risk-level">Calculating...</p>
+      </div>
+
+      <div class="best-performer">
+        <h3>🏆 Best Performer</h3>
+        <p id="best-investor">No data yet</p>
+      </div>
+
+      <div class="category-breakdown">
+        <h3>Portfolio Breakdown</h3>
+
+        <p>Stocks</p>
+        <div class="bar"><div id="stock-bar"></div></div>
+
+        <p>Crypto</p>
+        <div class="bar"><div id="crypto-bar"></div></div>
+
+        <p>Bonds</p>
+        <div class="bar"><div id="bond-bar"></div></div>
+      </div>
+      <div class="goal-section">
+        <h3>🎯 Goal Calculator</h3>
+
+        <input
+          type="number"
+          id="goal-input"
+          placeholder="Enter your target amount (₹)"
+        />
+
+        <button id="goal-btn">Calculate</button>
+
+        <p id="goal-result">Enter a goal to see estimate</p>
+      </div>
+
+      <div class="transaction-history">
+        <h3>Transaction History</h3>
+        <ul id="transaction-list"></ul>
+      </div>
     </div>
 
-    <div class="card">
-      <h3>Profit / Loss</h3>
-      <p id="profit-loss">₹0</p>
-    </div>
-
-    <div class="card">
-      <h3>Return %</h3>
-      <p id="return-percent">0%</p>
-    </div>
-  </div>
-
-
-  
-  <div class="risk-box">
-    <h3>Risk Analysis</h3>
-    <p id="risk-level">Calculating...</p>
-  </div>
-
-
- 
-  <div class="best-performer">
-    <h3>🏆 Best Performer</h3>
-    <p id="best-investor">No data yet</p>
-  </div>
-
-
-  
-  <div class="category-breakdown">
-    <h3>Portfolio Breakdown</h3>
-
-    <p>Stocks</p>
-    <div class="bar"><div id="stock-bar"></div></div>
-
-    <p>Crypto</p>
-    <div class="bar"><div id="crypto-bar"></div></div>
-
-    <p>Bonds</p>
-    <div class="bar"><div id="bond-bar"></div></div>
-  </div>
-<div class="goal-section">
-  <h3>🎯 Goal Calculator</h3>
-
-  <input type="number" id="goal-input" placeholder="Enter your target amount (₹)">
-
-  <button id="goal-btn">Calculate</button>
-
-  <p id="goal-result">Enter a goal to see estimate</p>
-</div>
-
-  
-  <div class="transaction-history">
-    <h3>Transaction History</h3>
-    <ul id="transaction-list"></ul>
-  </div>
-
-</div>
-
-
-
-
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
   </body>
 </html>

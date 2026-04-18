@@ -8,6 +8,36 @@ document.addEventListener("DOMContentLoaded", () => {
   const btn = document.getElementById("calculate-btn");
 
   let chart;
+  demoChart();
+  function demoChart() {
+    const P = 10000;
+    const n = 10 * 12;
+    const r = 12 / 100 / 12;
+
+    if (!P || !n || !r) return;
+
+    let futureValue = 0;
+    let invested = P * n;
+
+    const values = [];
+    const investedArr = [];
+    const labels = [];
+
+    for (let i = 1; i <= n; i++) {
+      futureValue = (futureValue + P) * (1 + r);
+
+      if (i % 12 === 0) {
+        values.push(Math.round(futureValue));
+        investedArr.push(P * i);
+        labels.push("Year " + i / 12);
+      }
+    }
+
+    result.textContent = "₹" + futureValue.toLocaleString();
+    investedText.textContent = "₹" + invested.toLocaleString() + " invested";
+
+    drawChart(labels, values, investedArr);
+  }
 
   rate.addEventListener("input", () => {
     rateValue.textContent = rate.value + "%";
@@ -18,7 +48,6 @@ document.addEventListener("DOMContentLoaded", () => {
     .getElementById("calculate-btn")
     .addEventListener("click", calculateSIP);
 
-  // also update % text live
   document.getElementById("rate").addEventListener("input", function () {
     document.getElementById("rate-value").innerText = this.value + "%";
   });

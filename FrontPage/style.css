@@ -53,6 +53,7 @@ nav li {
   margin-right: 5%;
 
   transition: 0.3s ease-in-out all;
+  font-size: 18px;
 }
 nav a {
   display: inline-block;
@@ -891,3 +892,78 @@ body {
   font-weight: 600;
   color: #1e293b;
 }
+.footer {
+  background: #ffffff;
+  margin-top: 50px;
+  padding-top: 40px;
+  border-top: 1px solid #ddd;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 20px 30px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.footer-left {
+  max-width: 250px;
+}
+
+.footer-left h3 {
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.footer-left p {
+  color: #666;
+  font-size: 14px;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-links h4 {
+  margin-bottom: 10px;
+  color: #2c3e50;
+}
+
+.footer-links a {
+  text-decoration: none;
+  color: #666;
+  margin: 5px 0;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.footer-links a:hover {
+  color: #3b5cff;
+}
+
+.footer-social h4 {
+  margin-bottom: 10px;
+}
+
+.icons i {
+  font-size: 18px;
+  margin-right: 12px;
+  cursor: pointer;
+  color: #666;
+  transition: 0.3s;
+}
+
+.icons i:hover {
+  color: #3b5cff;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding: 15px 0;
+  border-top: 1px solid #eee;
+  font-size: 14px;
+  color: #888;
+} 

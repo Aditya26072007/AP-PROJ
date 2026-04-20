@@ -22,10 +22,8 @@ body {
   z-index: 2;
 }
 
-.logo {
-  color:BLUE;
-  font-size: 32px;
-  font-weight: bold;
+.navbar .logo img {
+  width: 150px;
 }
 
 .nav-right {

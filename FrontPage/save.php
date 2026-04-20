@@ -1,5 +1,5 @@
 <?php
-header("Content-Type: application/json");   //it is a json response
+header("Content-Type: application/json");   
 
 $conn = new mysqli("localhost", "root", "", "portfolio_db");
 
@@ -8,7 +8,7 @@ if ($conn->connect_error) {
 }
 
 
-$data = json_decode(file_get_contents("php://input"), true); // Get JSON
+$data = json_decode(file_get_contents("php://input"), true); 
 
 
 if (!$data) {
@@ -24,7 +24,7 @@ $amount = $data["amount"] ?? 0;
 $date = $data["date"] ?? null;
 $units = $data["units"] ?? 0;
 
-// Validate
+
 if (!$id || !$type || !$name || !$amount || !$date) {
     echo json_encode(["status" => "error", "message" => "Missing fields"]);
     exit();

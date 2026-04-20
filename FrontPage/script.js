@@ -48,7 +48,6 @@ cross.addEventListener("click",()=>{
 
 arrows.forEach(arrow => {
   arrow.addEventListener("click", (e) => {
-     // prevents unwanted bubbling
     arrow.classList.toggle("rotate");
   });
 });
@@ -143,7 +142,7 @@ updateDashboardUI();
   savetolocal();
  renderInvestors();
 
-  calculatetoatldisplay(); // 🔥 important
+  calculatetoatldisplay(); 
 
   document.getElementById("type").value="";
   document.getElementById("investment").value="Select option";
@@ -204,7 +203,6 @@ function renderInvestors() {
   currentInvestorId = inv.id;
   invsText.textContent = `Investor ${index + 1}`;
 
-  // 🔥 refresh UI for selected investor
   calculatetoatldisplay();
   updateDashboardUI();
 });
@@ -227,7 +225,6 @@ function renderInvestors() {
 }
 });
 
-    // add investment
     header.querySelector(".add-btn").addEventListener("click", (e) => {
       e.stopPropagation();
       currentInvestorId = inv.id;
@@ -237,7 +234,6 @@ function renderInvestors() {
 
     ol.appendChild(header);
 
-    // investments
     (inv.investments || []).forEach((item) => {
       const li = document.createElement("li");
       li.innerHTML = `
@@ -360,7 +356,6 @@ function getCurrentPrice(inv) {
 
   return currentPrice;
 }
-// calculateTotal();
 calculatetoatldisplay();
 
 function getPriceAtDate(inv, targetDate) {
@@ -369,7 +364,6 @@ function getPriceAtDate(inv, targetDate) {
 
   const investDate = new Date(inv.date);
 
-  // if target date is before investment → no value
   if (targetDate < investDate) return 0;
 
   const days =
@@ -538,7 +532,6 @@ function updateDashboardUI() {
   const profit = totalCurrent - totalInvested;
   const percent = totalInvested ? (profit / totalInvested) * 100 : 0;
 
-  // 💰 Summary Cards
   document.getElementById("total-invested").textContent =
     "₹" + totalInvested.toFixed(2);
 

@@ -1,17 +1,16 @@
 let index = 0;
 const track = document.getElementById("track");
-const dotsContainer = document.getElementById("dots"); // fixed selector
+const dotsContainer = document.getElementById("dots"); 
 const total = track.children.length;
 
-// create dots
 for (let i = 0; i < total; i++) {
   const dot = document.createElement("span");
   dot.classList.add("dot");
   if (i === 0) dot.classList.add("active");
 
-  // add click event to each dot
+
   dot.addEventListener("click", () => {
-    index = i; // set index to clicked dot
+    index = i; 
     track.style.transform = `translateX(-${index * 100}%)`;
     updateDots();
   });
@@ -25,7 +24,6 @@ function updateDots() {
   dots[index].classList.add("active");
 }
 
-// AUTO SLIDE
 let autoSlide = setInterval(nextSlide, 3000);
 
 function nextSlide() {
@@ -34,7 +32,6 @@ function nextSlide() {
   updateDots();
 }
 
-// Pause on hover
 track.addEventListener("mouseenter", () => clearInterval(autoSlide));
 track.addEventListener("mouseleave", () => {
   autoSlide = setInterval(nextSlide, 3000);

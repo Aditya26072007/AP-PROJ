@@ -217,9 +217,9 @@ h1 {
   transition: 0.3s ease;
 }
 .btn:hover {
-  background: #00b894;              /* vibrant teal-green */
-  transform: scale(1.1);            /* subtle size increase */
-  box-shadow: 0 6px 12px rgba(0,0,0,0.2); /* depth effect */
+  background: #00b894;              
+  transform: scale(1.1);            
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2); 
 }
 .right {
   flex: 1.3; 
@@ -278,9 +278,9 @@ h3 {
   transition: 0.3s ease;
 }
 #connect-btn:hover {
-  background: #00b894;              /* vibrant teal-green */
-  transform: scale(1.1);            /* subtle size increase */
-  box-shadow: 0 6px 12px rgba(0,0,0,0.2); /* depth effect */
+  background: #00b894;            
+  transform: scale(1.1);            
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2); 
 }
 #connect-call {
   border: solid 1px #3b5cff;
@@ -345,9 +345,9 @@ h3 {
   transition: 0.3s ease;
 }
 #media-email:hover {
-  background: #00b894;              /* vibrant teal-green */
-  transform: scale(1.1);            /* subtle size increase */
-  box-shadow: 0 6px 12px rgba(0,0,0,0.2); /* depth effect */
+  background: #00b894;             
+  transform: scale(1.1);            
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2); 
 }
 .media-img {
   margin-right: 250px;
@@ -414,9 +414,9 @@ h4 {
   transition: 0.3s ease;
 }
 .career button:hover {
-  background: #00b894;              /* vibrant teal-green */
-  transform: scale(1.1);            /* subtle size increase */
-  box-shadow: 0 6px 12px rgba(0,0,0,0.2); /* depth effect */
+  background: #00b894;              
+  transform: scale(1.1);            
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
 }
 
 .footer {

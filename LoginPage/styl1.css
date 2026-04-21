@@ -95,5 +95,11 @@ body {
   cursor: pointer;
   font-weight: bold;
   border-radius: 30px;
-    width: 200px; 
+  width: 200px;
+  transition: 0.3s ease; 
+}
+.email-box button:hover {
+  background: #00b894;             
+  transform: scale(1.1);            
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2); 
 }

@@ -10,8 +10,8 @@
       let email = document.getElementById("email").value;
       let password = document.getElementById("password").value;
 
-      if (email.indexOf("@") === -1) {
-        alert("Email must contain @");
+      if (email.indexOf("@") === -1 || email.indexOf(".") === -1) {
+        alert("Email must contain @ and .");
         return false;
       }
 

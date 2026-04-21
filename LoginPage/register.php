@@ -13,24 +13,13 @@ if ($conn->connect_error) {
 $email = $_POST['email'];
 $pass = $_POST['password'];
 
-if (strpos($email, '@') === false) {
-    echo "Error: Email must contain @ symbol!";
-    exit();
-}
-
-if (strlen($pass) < 8) {
-    echo "Error: Password must be at least 8 characters!";
-    exit();
-}
-
 $sql = "INSERT INTO Users (email, password) VALUES ('$email', '$pass')";
 
 if ($conn->query($sql) === TRUE) {
-  echo "Registration successful!";
-  header("Location: ../FrontPage/index.html");
+  header("Location: /AP-PROJ/FrontPage/index.html");
   exit();
 } else {
-  echo "Error: " . $sql . "<br>" . $conn->error;
+  echo "Error: " . $conn->error;
 }
 
 $conn->close();

@@ -214,9 +214,15 @@ h1 {
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  transition: 0.3s ease;
+}
+.btn:hover {
+  background: #00b894;              /* vibrant teal-green */
+  transform: scale(1.1);            /* subtle size increase */
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2); /* depth effect */
 }
 .right {
-  flex: 1.3; /* bigger than left */
+  flex: 1.3; 
 }
 
 .illustration {
@@ -269,6 +275,12 @@ h3 {
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  transition: 0.3s ease;
+}
+#connect-btn:hover {
+  background: #00b894;              /* vibrant teal-green */
+  transform: scale(1.1);            /* subtle size increase */
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2); /* depth effect */
 }
 #connect-call {
   border: solid 1px #3b5cff;
@@ -277,6 +289,14 @@ h3 {
   border-radius: 6px;
   cursor: pointer;
   margin-left: 30px;
+  transition: 0.3s ease;
+}
+#connect-call:hover {
+  background: white;
+  color: #00b894;
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+  border:solid 1px #00b894;
 }
 .connect-img {
   margin-right: 150px;
@@ -322,6 +342,12 @@ h3 {
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  transition: 0.3s ease;
+}
+#media-email:hover {
+  background: #00b894;              /* vibrant teal-green */
+  transform: scale(1.1);            /* subtle size increase */
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2); /* depth effect */
 }
 .media-img {
   margin-right: 250px;
@@ -353,6 +379,11 @@ h4 {
   height: 40px;
   border-radius: 5px;
   color: #666;
+  transition: 0.3s ease;
+}
+.findUs select:hover {
+  border: solid 1px #3b5cff;
+  color: #3b5cff;
 }
 .findUs-img {
   margin-right: 120px;
@@ -380,6 +411,12 @@ h4 {
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  transition: 0.3s ease;
+}
+.career button:hover {
+  background: #00b894;              /* vibrant teal-green */
+  transform: scale(1.1);            /* subtle size increase */
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2); /* depth effect */
 }
 
 .footer {

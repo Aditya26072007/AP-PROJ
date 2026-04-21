@@ -158,19 +158,10 @@ updateDashboardUI();
 
 
 
-//php part
 
 
-fetch("http://localhost:8080/portfolioproject/AP-Project%20-%20Copy/FrontPagecopy/save.php", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify(data)
-})
-.then(res => res.json())
-.then(res => console.log("Saved:", res))
-.catch(err => console.log("Error:", err));
+
+
 
   }
 

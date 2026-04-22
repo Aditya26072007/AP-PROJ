@@ -1,38 +1,32 @@
-let index = 0;
-const track = document.getElementById("track");
-const dotsContainer = document.getElementById("dots"); 
-const total = track.children.length;
+let index = 0;  
+const track = document.getElementById("track");  
+const dots = document.getElementById("dots");  
+const total = track.children.length;  
 
+// make dots
 for (let i = 0; i < total; i++) {
-  const dot = document.createElement("span");
-  dot.classList.add("dot");
+  let dot = document.createElement("span");
+  dot.className = "dot";
   if (i === 0) dot.classList.add("active");
-
-
-  dot.addEventListener("click", () => {
-    index = i; 
-    track.style.transform = `translateX(-${index * 100}%)`;
-    updateDots();
-  });
-
-  dotsContainer.appendChild(dot);
+  dot.onclick = () => showSlide(i);
+  dots.appendChild(dot);
 }
 
-function updateDots() {
-  const dots = document.querySelectorAll(".dot");
-  dots.forEach(d => d.classList.remove("active"));
-  dots[index].classList.add("active");
-}
-
-let autoSlide = setInterval(nextSlide, 3000);
-
-function nextSlide() {
-  index = (index + 1) % total;
-  track.style.transform = `translateX(-${index * 100}%)`;
+function showSlide(i) {
+  index = i;
+  track.style.transform = `translateX(-${i * 100}%)`;
   updateDots();
 }
 
-track.addEventListener("mouseenter", () => clearInterval(autoSlide));
-track.addEventListener("mouseleave", () => {
-  autoSlide = setInterval(nextSlide, 3000);
-});
+function updateDots() {
+  document.querySelectorAll(".dot").forEach((d, i) => {
+    d.classList.toggle("active", i === index);
+  });
+}
+
+// auto move every 3 seconds
+setInterval(() => {
+  index = (index + 1) % total;
+  showSlide(index);
+}, 3000);
+  
